@@ -18,8 +18,7 @@ export class ProdutoRepository {
     }
 
     async criar(produto: Produto){
-       const produtoCriado = await this.repository.insert(produto)
-        return produtoCriado
+       return await this.repository.insert(produto)
     }
 
     atualizar(produto: Produto){

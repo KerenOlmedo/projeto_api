@@ -1,9 +1,9 @@
 import { Controller, Get, Post, Put, Delete, Body } from "@nestjs/common";
-import {ApiBody} from "@nestjs/swagger"
+import {ApiBody, ApiTags} from "@nestjs/swagger"
 import { Produto } from "../Types/Produto";
 import { ProdutoService } from "../Service/produto.service";
 
-
+@ApiTags("Produtos")
 @Controller("produtos")
 export class ProdutoController {
     constructor(
