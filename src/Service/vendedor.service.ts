@@ -1,28 +1,43 @@
 import { Injectable } from '@nestjs/common';
+import { VendedorResponse } from '../Types/VendedorResponse';
 import { VendedorRepository } from '../Repository/Vendedor.repository';
 import { Vendedor } from '../Types/Vendedor';
+import { ListaVendedor } from '../Types/ListaVendedor';
 
 
 @Injectable()
 export class VendedorService{
     constructor(private repository: VendedorRepository){}
 
-    async buscar(vendedor: Vendedor){
-        return await this.repository.buscar(vendedor)
+    async buscar(vendedor: Vendedor): Promise<VendedorResponse>{
+        const response = new VendedorResponse()
+        const resultados = await this.repository.buscar(vendedor)
+        if (resultados.length > 0) {
+            response.listaVendedor = new ListaVendedor()
+            response.listaVendedor.vendedor = resultados.map((vendedor)=> {
+                return vendedor
+            })
+            response.mensagem = "Vendedor encontrado com sucesso!"
+        } else {
+            response.mensagem = "Vendedor não encontrado!"
+        }
+        return response
     }
 
-    async criar(vendedor: Vendedor){
+    async criar(vendedor: Vendedor): Promise<VendedorResponse>{
+        const response = new VendedorResponse()
         try {
            const retornoVendedor = await this.repository.buscaCpf(vendedor)
            if (!retornoVendedor) {
-            this.repository.criar(vendedor)
-            return "Vendedor cadastrado com sucesso!"
+            await this.repository.criar(vendedor)
+            response.mensagem = "Vendedor cadastrado com sucesso!"
            } else {
-            return "Vendedor já cadastrado neste CPF!"
+            response.mensagem = "Vendedor já cadastrado neste CPF!"
            }
         } catch (error) {
-            return error
+            response.mensagem = error?.sqlMessage
         }
+        return response
     }
 
     async atualizar(vendedor: Vendedor){
