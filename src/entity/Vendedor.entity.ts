@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from "typeorm"
+import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm"
+import { SetorEntity } from "./Setor.entity"
 
 
 @Entity("VENDEDOR")
@@ -12,6 +13,6 @@ export class VendedorEntity {
     @Column()
     nome: string
 
-    @Column()
-    setor: string
+    @ManyToOne(()=> SetorEntity, (setor) => setor.id, {eager: true})
+    setor: SetorEntity
 }

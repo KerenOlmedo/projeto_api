@@ -7,12 +7,12 @@ export class Produto {
         this.valor = undefined
     }
 
-    @ApiProperty()
+    @ApiProperty({required: false})
     id: number
 
-    @ApiProperty()
+    @ApiProperty({required: false})
     nome: string
 
-    @ApiProperty()
+    @ApiProperty({required: false})
     valor: number
 }
