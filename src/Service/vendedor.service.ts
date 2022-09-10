@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { VendedorResponse } from '../Types/VendedorResponse';
 import { VendedorRepository } from '../Repository/Vendedor.repository';
-import { Vendedor } from '../Types/Vendedor';
-import { ListaVendedor } from '../Types/ListaVendedor';
 import { response } from 'express';
+import { Vendedor } from '../Types/vendedor/Vendedor';
+import { VendedorResponse } from '../Types/vendedor/VendedorResponse';
+import { ListaVendedor } from '../Types/vendedor/ListaVendedor';
 
 
 @Injectable()

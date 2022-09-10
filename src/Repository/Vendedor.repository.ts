@@ -1,5 +1,5 @@
 import { InjectRepository } from "@nestjs/typeorm";
-import { Vendedor } from "../Types/Vendedor";
+import { Vendedor } from "../Types/vendedor/Vendedor";
 import { Repository } from "typeorm";
 import { VendedorEntity } from "../entity/Vendedor.entity";
 

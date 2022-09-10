@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Put, Delete, Body, Query } from "@nestjs/common";
 import {ApiBody, ApiTags} from "@nestjs/swagger"
-import { Produto } from "../Types/Produto";
+import { Produto } from "../Types/produto/Produto";
 import { ProdutoService } from "../Service/produto.service";
 
 @ApiTags("Produtos")

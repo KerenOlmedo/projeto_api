@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Produto } from '../Types/Produto';
-import { ProdutoResponse } from '../Types/ProdutoResponse';
+import { Produto } from '../Types/produto/Produto';
+import { ProdutoResponse } from '../Types/produto/ProdutoResponse';
 import { ProdutoRepository } from '../Repository/Produto.repository';
-import { ListaProduto } from '../Types/ListaProduto';
-import { Vendedor } from '../Types/Vendedor';
+import { ListaProduto } from '../Types/produto/ListaProduto';
 
 @Injectable()
 export class ProdutoService {

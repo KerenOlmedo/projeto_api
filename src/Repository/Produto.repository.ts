@@ -1,7 +1,7 @@
 import { InjectRepository } from "@nestjs/typeorm";
 import { ProdutoEntity } from "../entity/Produto.entity";
 import { Repository } from "typeorm";
-import { Produto } from "../Types/Produto";
+import { Produto } from "../Types/produto/Produto";
 
 export class ProdutoRepository {
     constructor(
