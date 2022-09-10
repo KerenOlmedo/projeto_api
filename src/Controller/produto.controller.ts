@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Body } from "@nestjs/common";
+import { Controller, Get, Post, Put, Delete, Body, Query } from "@nestjs/common";
 import {ApiBody, ApiTags} from "@nestjs/swagger"
 import { Produto } from "../Types/Produto";
 import { ProdutoService } from "../Service/produto.service";
@@ -11,8 +11,8 @@ export class ProdutoController {
     ){}
 
     @Get()
-    async buscar(){
-        return await this.service.buscar()
+    async buscar(@Query() produto : Produto){
+        return await this.service.buscar(produto)
     }
 
     @Post()

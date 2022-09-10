@@ -3,6 +3,7 @@ import { VendedorResponse } from '../Types/VendedorResponse';
 import { VendedorRepository } from '../Repository/Vendedor.repository';
 import { Vendedor } from '../Types/Vendedor';
 import { ListaVendedor } from '../Types/ListaVendedor';
+import { response } from 'express';
 
 
 @Injectable()
@@ -17,9 +18,9 @@ export class VendedorService{
             response.listaVendedor.vendedor = resultados.map((vendedor)=> {
                 return vendedor
             })
-            response.mensagem = "Vendedor encontrado com sucesso!"
+            response.mensagem = mensagemSucess("encontrado")
         } else {
-            response.mensagem = "Vendedor não encontrado!"
+            response.mensagem = mensagemErro()
         }
         return response
     }
@@ -30,7 +31,7 @@ export class VendedorService{
            const retornoVendedor = await this.repository.buscaCpf(vendedor)
            if (!retornoVendedor) {
             await this.repository.criar(vendedor)
-            response.mensagem = "Vendedor cadastrado com sucesso!"
+            response.mensagem = mensagemSucess("cadastrado")
            } else {
             response.mensagem = "Vendedor já cadastrado neste CPF!"
            }
@@ -40,40 +41,44 @@ export class VendedorService{
         return response
     }
 
-    async atualizar(vendedor: Vendedor){
+    async atualizar(vendedor: Vendedor): Promise<VendedorResponse>{
+        const response = new VendedorResponse()
         try {
             const retornoVendedor = await this.repository.buscaCpf(vendedor)
             if (retornoVendedor) {
                 this.repository.atualizar(vendedor)
-                return "Vendedor atualizado com sucesso!"
+                response.mensagem = mensagemSucess("Atualizado")
             } else {
-                return "Vendedor não encontrado"
+                response.mensagem = mensagemErro()
             }
         } catch (error) {
             return error
         }
     }
 
-    deletar(vendedor: Vendedor){
+    deletar(vendedor: Vendedor): Promise<VendedorResponse>{
+        const response = new VendedorResponse()
         try {
             const retornoVendedor = this.repository.buscaCpf(vendedor)
             if (retornoVendedor) {
                 this.repository.deletar(vendedor)
-                return "Vendedor deletado com sucesso!"
+                response.mensagem = mensagemSucess("deletado")
             } else {
-                return "Vendedor não encontrado!"
+                response.mensagem =  mensagemErro()
             }
         } catch (error) {
             return error
         }
     }
 
-    verificarBody(vendedor: Vendedor){
-        for (const buscaParams of Object.keys(vendedor)) {
-            console.log(buscaParams);
-            
-        }
+}
 
-    }
+function mensagemSucess(mensagem:string) : string{
+    const modeloMensage = `Vendedor ${mensagem} com sucesso!`
+    return modeloMensage
+}
 
+function mensagemErro( ) : string {
+    const modeloMensage = `Vendedor não encontrado!`
+    return modeloMensage
 }

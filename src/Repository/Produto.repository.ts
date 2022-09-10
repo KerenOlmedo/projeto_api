@@ -9,8 +9,8 @@ export class ProdutoRepository {
         private repository: Repository<ProdutoEntity>
     ){}
 
-    async buscar(){
-        return await this.repository.find()
+    async buscar(produto: Produto){
+        return await this.repository.find({where: produto})
     }
 
     async buscaId(produto: Produto){
